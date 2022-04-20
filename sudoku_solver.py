@@ -31,12 +31,12 @@ class Sudoku:
                     return position
 
     def validate_fields(self, number, y, x):
-        for row in range(len(self.gameboard)):
-            if self.gameboard[row][x] == number and (row, x) != (y, x):
+        for yy in range(len(self.gameboard)):
+            if self.gameboard[yy][x] == number and (yy, x) != (y, x):
                 return False
 
-        for column in range(len(self.gameboard[0])):
-            if self.gameboard[y][column] == number and (y, column) != (y, x):
+        for xx in range(len(self.gameboard[0])):
+            if self.gameboard[y][xx] == number and (y, xx) != (y, x):
                 return False
 
         block_x = x // 3 * 3
