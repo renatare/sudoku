@@ -1,38 +1,26 @@
 from sudoku_solver import Sudoku
+from file_opener import FileOpener
 from datetime import datetime
 from loginimas import logger
 
 if __name__ == "__main__":
     start_time = datetime.now()
 
-    def load_puzzle_from_file():
-        gameboard = []
-        with open('sudoku_puzzle.txt', 'r') as file:
-            for line in file.readlines():
-                gameboard_line = [int(element) for element in line.strip()]
-                gameboard.append(gameboard_line)
-        return gameboard
-
-    def upload_puzzle_to_file():
-        with open("sudoku_puzzle_result.txt", 'w', encoding="utf-8") as failas:
-            failas.write("---------------------------- \n UNSOLVED SUDOKU GAMEBOARD\n----------------------------\n")
-            failas.write(sudoku.print_gameboard())
-            failas.close()
-
-    def upload_puzzle_result_to_file():
-        with open("sudoku_puzzle_result.txt", 'a', encoding="utf-8") as failas:
-            failas.write("\n---------------------------- \n      SOLVED SUDOKU\n----------------------------\n")
-            failas.write(sudoku.print_gameboard())
-            failas.close()
-
-    gameboard = load_puzzle_from_file()
+    file_opener = FileOpener()
+    gameboard = file_opener.read_from_file('sudoku_puzzle.txt')
     sudoku = Sudoku(gameboard)
 
     sudoku.validate_gameboard()
-    upload_puzzle_to_file()
+    file_opener.upload_to_file(
+        'sudoku_puzzle_result.txt',
+        f'\n-------------------------\nUNSOLVED SUDOKU GAMEBOARD\n-------------------------\n{sudoku.print_gameboard()}'
+    )
 
     sudoku.solve_sudoku()
-    upload_puzzle_result_to_file()
+    file_opener.append_to_file(
+        'sudoku_puzzle_result.txt',
+        f'\n-------------------------\n SOLVED SUDOKU GAMEBOARD\n-------------------------\n{sudoku.print_gameboard()}'
+    )
 
     end_time = datetime.now()
     time_diff = (end_time - start_time)
