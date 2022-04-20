@@ -5,30 +5,37 @@ from loginimas import logger
 if __name__ == "__main__":
     start_time = datetime.now()
 
-    gameboard = [
-        [0, 6, 0, 3, 0, 2, 0, 0, 1],
-        [3, 0, 0, 0, 0, 0, 0, 6, 8],
-        [7, 0, 1, 5, 0, 0, 9, 0, 0],
-        [0, 8, 0, 9, 0, 3, 7, 0, 0],
-        [9, 0, 0, 0, 2, 0, 0, 0, 0],
-        [6, 0, 7, 0, 0, 1, 2, 5, 0],
-        [1, 0, 9, 0, 0, 6, 0, 0, 0],
-        [0, 5, 0, 7, 4, 0, 0, 3, 0],
-        [0, 2, 0, 0, 0, 5, 0, 0, 0]
-    ]
+    def load_puzzle_from_file():
+        gameboard = []
+        with open('sudoku_puzzle.txt', 'r') as file:
+            for line in file.readlines():
+                gameboard_line = [int(element) for element in line.strip()]
+                gameboard.append(gameboard_line)
+        return gameboard
 
+    def upload_puzzle_to_file():
+        with open("sudoku_puzzle_result.txt", 'w', encoding="utf-8") as failas:
+            failas.write("---------------------------- \n UNSOLVED SUDOKU GAMEBOARD\n----------------------------\n")
+            failas.write(sudoku.print_gameboard())
+            failas.close()
+
+    def upload_puzzle_result_to_file():
+        with open("sudoku_puzzle_result.txt", 'a', encoding="utf-8") as failas:
+            failas.write("\n---------------------------- \n      SOLVED SUDOKU\n----------------------------\n")
+            failas.write(sudoku.print_gameboard())
+            failas.close()
+
+    gameboard = load_puzzle_from_file()
     sudoku = Sudoku(gameboard)
 
     sudoku.validate_gameboard()
-    print("---------------------------- \n UNSOLVED SUDOKU GAMEBOARD\n----------------------------")
-    print(sudoku.print_gameboard())
+    upload_puzzle_to_file()
 
     sudoku.solve_sudoku()
-    print("\n---------------------------- \n      SOLVED SUDOKU\n----------------------------")
-    print(sudoku.print_gameboard())
+    upload_puzzle_result_to_file()
 
     end_time = datetime.now()
     time_diff = (end_time - start_time)
     execution_time = time_diff.total_seconds()
-    # logger.info(f"\n Pradzia {start_time},\n Pabaiga {end_time}, \n Ivykdymo laikas {execution_time}")
-    
+
+    logger.info(f"\n Pradzia {start_time},\n Pabaiga {end_time}, \n Ivykdymo laikas {execution_time}")
