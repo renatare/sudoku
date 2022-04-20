@@ -3,18 +3,22 @@ class Sudoku:
         self.gameboard = gameboard
 
     def print_gameboard(self):
+        result = ''
         for row in range(len(self.gameboard)):
             if row % 3 == 0 and row != 0:
-                print("- " * 13 + '\n', end="")
+                result += "- " * 13 + '\n'
 
             for column in range(len(self.gameboard[0])):
                 if column % 3 == 0:
-                    print("| ", end="")
+                    result += "| "
 
                 if column == len(self.gameboard[0]) - 1:
-                    print(str(self.gameboard[row][column]) + " |")
+                    result += str(self.gameboard[row][column]) + " |"
                 else:
-                    print(str(self.gameboard[row][column]) + " ", end="")
+                    result += str(self.gameboard[row][column]) + " "
+            result += '\n'
+
+        return result
 
     def validate_gameboard(self):
         for row in self.gameboard:
@@ -27,8 +31,7 @@ class Sudoku:
         for row in range(len(self.gameboard)):
             for colum in range(len(self.gameboard[0])):
                 if self.gameboard[row][colum] == 0:
-                    position = (row, colum) # row is y_axis, column is x_axis
-                    return position
+                    return (row, colum) # row is y_axis, column is x_axis
 
     def find_all_empty_fields(self):
         empty_fields = []
@@ -39,13 +42,13 @@ class Sudoku:
                     empty_fields.append(position)
         return empty_fields
 
-    def validate_fields(self, number, y, x):
+    def validate_fields(self, number, y, x): #(y, x) is empty position
         for yy in range(len(self.gameboard)):
-            if self.gameboard[yy][x] == number and (yy, x) != (y, x):
+            if self.gameboard[yy][x] == number and (yy, x) != (y, x): # checks if number not in the column
                 return False
 
         for xx in range(len(self.gameboard[0])):
-            if self.gameboard[y][xx] == number and (y, xx) != (y, x):
+            if self.gameboard[y][xx] == number and (y, xx) != (y, x): # checks if number not in the row
                 return False
 
         block_x = x // 3 * 3
