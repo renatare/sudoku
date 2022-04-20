@@ -1,11 +1,17 @@
+from loginimas import logger
+
 class FileOpener():
     def read_from_file(self, filename):
         gameboard = []
-        with open(filename, 'r') as file:
-            for line in file.readlines():
-                gameboard_line = [int(element) for element in line.strip()]
-                gameboard.append(gameboard_line)
-        return gameboard
+        try:
+            with open(filename, 'r') as file:
+                for line in file.readlines():
+                    gameboard_line = [int(element) for element in line.strip()]
+                    gameboard.append(gameboard_line)
+            return gameboard
+        except Exception as exception:
+            logger.error(f"\n Klaida {exception},\n")
+            raise
 
     def upload_to_file(self, filename, content):
         with open(filename, 'w', encoding="utf-8") as failas:
