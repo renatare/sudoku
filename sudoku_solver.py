@@ -11,7 +11,7 @@ class Sudoku:
                 if column % 3 == 0:
                     print("| ", end="")
 
-                if column == 8:
+                if column == len(self.gameboard[0]) - 1:
                     print(str(self.gameboard[row][column]) + " |")
                 else:
                     print(str(self.gameboard[row][column]) + " ", end="")
@@ -29,6 +29,15 @@ class Sudoku:
                 if self.gameboard[row][colum] == 0:
                     position = (row, colum) # row is y_axis, column is x_axis
                     return position
+
+    def find_all_empty_fields(self):
+        empty_fields = []
+        for row in range(len(self.gameboard)):
+            for colum in range(len(self.gameboard[0])):
+                if self.gameboard[row][colum] == 0:
+                    position = (row, colum)
+                    empty_fields.append(position)
+        return empty_fields
 
     def validate_fields(self, number, y, x):
         for yy in range(len(self.gameboard)):

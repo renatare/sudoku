@@ -20,13 +20,15 @@ if __name__ == "__main__":
     sudoku = Sudoku(gameboard)
 
     sudoku.validate_gameboard()
-    #sudoku.print_gameboard()
+    print("---------------------------- \n UNSOLVED SUDOKU GAMEBOARD\n----------------------------")
+    sudoku.print_gameboard()
+
     sudoku.solve_sudoku()
+    print("\n---------------------------- \n      SOLVED SUDOKU\n----------------------------")
     sudoku.print_gameboard()
 
     end_time = datetime.now()
     time_diff = (end_time - start_time)
     execution_time = time_diff.total_seconds()
-
-    logger.info(f"\n Pradzia {start_time},\n Pabaiga {end_time}, \n Ivykdymo laikas {execution_time}")
+    # logger.info(f"\n Pradzia {start_time},\n Pabaiga {end_time}, \n Ivykdymo laikas {execution_time}")
     
