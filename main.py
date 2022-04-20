@@ -6,19 +6,22 @@ from loginimas import logger
 if __name__ == "__main__":
     start_time = datetime.now()
 
+    sudoku_file = 'files/sudoku_puzzle.txt'
+    sudoku_result_file = 'files/sudoku_puzzle_result.txt'
+
     file_opener = FileOpener()
-    gameboard = file_opener.read_from_file('sudoku_puzzle.txt')
+    gameboard = file_opener.read_from_file(sudoku_file)
     sudoku = Sudoku(gameboard)
 
     sudoku.validate_gameboard()
     file_opener.upload_to_file(
-        'sudoku_puzzle_result.txt',
+        sudoku_result_file,
         f'\n-------------------------\nUNSOLVED SUDOKU GAMEBOARD\n-------------------------\n{sudoku.print_gameboard()}'
     )
 
     sudoku.solve_sudoku()
     file_opener.append_to_file(
-        'sudoku_puzzle_result.txt',
+        sudoku_result_file,
         f'\n-------------------------\n SOLVED SUDOKU GAMEBOARD\n-------------------------\n{sudoku.print_gameboard()}'
     )
 
