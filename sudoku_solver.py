@@ -27,24 +27,24 @@ class Sudoku:
         for row in range(len(self.gameboard)):
             for colum in range(len(self.gameboard[0])):
                 if self.gameboard[row][colum] == 0:
-                    position = (row, colum)
+                    position = (row, colum) # row is y_axis, column is x_axis
                     return position
 
-    def validate_fields(self, number, x, y):
+    def validate_fields(self, number, y, x):
         for row in range(len(self.gameboard)):
-            if self.gameboard[row][y] == number and (row, y) != (x, y):
+            if self.gameboard[row][x] == number and (row, x) != (y, x):
                 return False
 
         for column in range(len(self.gameboard[0])):
-            if self.gameboard[x][column] == number and (x, column) != (x, y):
+            if self.gameboard[y][column] == number and (y, column) != (y, x):
                 return False
 
-        block_x = y // 3 * 3
-        block_y = x // 3 * 3
+        block_x = x // 3 * 3
+        block_y = y // 3 * 3
 
-        for i in range(block_y, block_y + 3):
-            for j in range(block_x, block_x + 3):
-                if self.gameboard[i][j] == number and (i, j) != (x, y):
+        for yy in range(block_y, block_y + 3):
+            for xx in range(block_x, block_x + 3):
+                if self.gameboard[yy][xx] == number and (yy, xx) != (y, x):
                     return False
 
         return True
@@ -54,14 +54,14 @@ class Sudoku:
         if not empty_position:
             return True # print("Sudoku is solved")
         
-        x, y = empty_position
+        y, x = empty_position # row is y_axis, column is x_axis
         
         for number in range(1, 10):
-            if self.validate_fields(number, x, y):
-                self.gameboard[x][y] = number
+            if self.validate_fields(number, y, x):
+                self.gameboard[y][x] = number
                 
                 if self.solve_sudoku():
                     return True
                 else:
-                    self.gameboard[x][y] = 0
+                    self.gameboard[y][x] = 0
         return False
