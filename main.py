@@ -21,11 +21,11 @@ if __name__ == "__main__":
 
     sudoku.validate_gameboard()
     print("---------------------------- \n UNSOLVED SUDOKU GAMEBOARD\n----------------------------")
-    sudoku.print_gameboard()
+    print(sudoku.print_gameboard())
 
     sudoku.solve_sudoku()
     print("\n---------------------------- \n      SOLVED SUDOKU\n----------------------------")
-    sudoku.print_gameboard()
+    print(sudoku.print_gameboard())
 
     end_time = datetime.now()
     time_diff = (end_time - start_time)
