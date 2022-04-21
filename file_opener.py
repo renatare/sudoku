@@ -1,5 +1,6 @@
 from loginimas import logger
 
+
 class FileOpener():
     def read_from_file(self, filename):
         gameboard = []

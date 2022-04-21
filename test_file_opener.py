@@ -2,6 +2,7 @@ import unittest
 import os
 from file_opener import *
 
+
 class TestFileOpener(unittest.TestCase):
     def setUp(self):
         self.readable_file = 'files/test_file.txt'

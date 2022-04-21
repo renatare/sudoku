@@ -1,6 +1,7 @@
 import unittest
 from sudoku_solver import *
 
+
 class TestSudoku(unittest.TestCase):
     def setUp(self):
         gameboard = [
